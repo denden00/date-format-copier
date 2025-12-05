@@ -1,0 +1,511 @@
+
+<!doctype html>
+<html lang="ja">
+<head>
+  <!-- 基本 -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- タイトル（検索向けキーワードを含める） -->
+  <title>日時フォーマット変換＆コピー｜無料ツール（日本語ロケール対応）</title>
+
+  <!-- メタディスクリプション：検索結果の説明 -->
+  <meta name="description" content="選んだ日付や時刻を、よく使う形式にすぐ変換してワンクリックでコピーできる無料ツール。日本語ロケール（年月日、曜日）対応。ビジネス文書・メール・資料作成に便利。" />
+
+  <!-- （任意）キーワード：効果は限定的だが補助で -->
+  <meta name="keywords" content="日付,日時,フォーマット,変換,コピー,無料ツール,日本語ロケール,ISO 8601,yyyyMMdd,yyyy-MM-dd" />
+
+  <!-- インデックスの基本方針 -->
+  <meta name="robots" content="index,follow" />
+
+  <!-- Canonical（重複URL対策） -->
+  https://YOUR_GITHUB_PAGES_URL/
+
+  <!-- OGP（SNSシェア用） -->
+  <meta property="og:title" content="日時フォーマット変換＆コピー｜無料ツール（日本語ロケール対応）" />
+  <meta property="og:description" content="日付や時刻を各種形式に変換し、ワンクリックでコピー。日本語ロケール対応。ビジネス文書・メール・資料作成に便利。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://YOUR_GITHUB_PAGES_URL/" />
+  <meta property="og:image" content="https://YOUR_GITHUB_PAGES_URL/og-image.png" />
+  <meta property="og:locale" content="ja_JP" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="日時フォーマット変換＆コピー｜無料ツール（日本語ロケール対応）" />
+  <meta name="twitter:description" content="日付や時刻を各種形式に変換し、ワンクリックでコピー。日本語ロケール対応。" />
+  <meta name="twitter:url" content="https://YOUR_GITHUB_PAGES_URL/" />
+  <meta name="twitter:image" content="https://YOUR_GITHUB_PAGES_URL/og-image.png" />
+
+  <!-- ファビコン等（任意） -->
+  favicon.ico
+  <meta name="theme-color" content="#2563eb" />
+
+  <!-- 構造化データ（JSON-LD / WebApplication） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "日時フォーマット変換＆コピー",
+    "description": "選んだ日付や時刻を各種形式に変換してワンクリックでコピーできる無料ツール。日本語ロケール対応。",
+    "applicationCategory": "Utility",
+    "operatingSystem": "All",
+    "url": "https://YOUR_GITHUB_PAGES_URL/",
+    "inLanguage": "ja-JP"
+  }
+  </script>
+
+  <!-- UIスタイル（レイアウトは安定版） -->
+  <style>
+    :root {
+      --bg: #ffffff;
+      --panel: #f8fafc;
+      --text: #111827;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-700: #1d4ed8;
+      --border: #e5e7eb;
+      --success-bg: #dcfce7;
+      --success-text: #065f46;
+      --accent-bg: #eef2ff;
+      --accent-border: #e0e7ff;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", Meiryo, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { max-width: 980px; margin: 28px auto; padding: 0 16px; }
+
+    header { margin-bottom: 16px; }
+    .title-wrap {
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-border);
+      border-radius: 20px;
+      padding: 18px 20px;
+      box-shadow: 0 8px 18px var(--shadow);
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex; align-items: center; gap: 10px; letter-spacing: .02em;
+    }
+    h1 .logo {
+      display: inline-flex; width: 28px; height: 28px;
+      align-items: center; justify-content: center;
+      border-radius: 8px; background: var(--primary); color: #fff; font-size: 16px;
+      box-shadow: 0 4px 10px var(--shadow);
+    }
+    .subdesc { margin: 0; font-size: 1.05rem; color: var(--muted); }
+    .subdesc p { margin: 0.4em 0; }
+
+    .controls {
+      display: grid; gap: 12px; background: var(--panel);
+      border: 1px solid var(--border); border-radius: 16px; padding: 18px;
+      position: sticky; top: 0; z-index: 10; box-shadow: 0 6px 18px var(--shadow);
+    }
+    .headline {
+      display: inline-flex; align-items: center; gap: 8px; font-weight: 700;
+      color: var(--primary); background: #eaf2ff; border: 1px solid #dbeafe;
+      border-radius: 999px; padding: 6px 12px; width: fit-content; white-space: nowrap;
+    }
+    .headline .icon {
+      display: inline-flex; width: 18px; height: 18px; align-items: center; justify-content: center;
+      border-radius: 50%; background: var(--primary); color: #fff; font-size: 12px;
+    }
+    #dtInput {
+      background: #fff; color: var(--text);
+      border: 2px solid #c7d2fe; border-radius: 12px; padding: 18px 20px; font-size: 1.2rem; font-weight: 600;
+      outline: none; box-shadow: 0 8px 18px var(--shadow); cursor: pointer;
+    }
+    #dtInput:hover { border-color: #93c5fd; box-shadow: 0 10px 22px var(--shadow); }
+    #dtInput:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37,99,235,.15), 0 10px 22px var(--shadow); }
+    .help { font-size: 0.95rem; color: var(--muted); }
+
+    .formats { margin-top: 16px; display: grid; gap: 12px; }
+    .row {
+      position: relative; display: flex; align-items: stretch; gap: 12px;
+      background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px;
+      box-shadow: 0 4px 12px var(--shadow); overflow: hidden;
+    }
+    .fmt-label {
+      flex: 0 0 auto; min-width: 190px; max-width: 280px; white-space: nowrap; align-self: center;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--muted); font-size: 0.95rem;
+    }
+    .row .value { flex: 1 1 auto; min-width: 120px; display: flex; }
+    .row .value input[type="text"] {
+      width: 100%; background: #fff; color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 12px; outline: none;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow: hidden; text-overflow: ellipsis;
+    }
+    .row .actions { flex: 0 0 auto; display: flex; align-items: center; }
+    button.copy {
+      background: var(--primary); color: #fff; border: none; border-radius: 10px;
+      padding: 10px 14px; cursor: pointer; font-weight: 700; white-space: nowrap; box-shadow: 0 4px 10px var(--shadow);
+    }
+    button.copy:hover { background: var(--primary-700); }
+
+    .local-toast {
+      position: absolute; right: 14px; top: 8px;
+      background: var(--success-bg); color: var(--success-text);
+      padding: 6px 10px; border-radius: 8px; font-size: 0.9rem; font-weight: 700;
+      box-shadow: 0 4px 12px var(--shadow); opacity: 0; transform: translateY(-8px);
+      transition: opacity .18s ease, transform .18s ease; border: 1px solid #bbf7d0; white-space: nowrap; pointer-events: none;
+    }
+    .local-toast.show { opacity: 1; transform: translateY(0); }
+
+    .custom {
+      margin-top: 8px; background: var(--panel); border: 1px solid var(--border);
+      border-radius: 16px; padding: 14px; display: grid; gap: 12px; box-shadow: 0 6px 18px var(--shadow);
+    }
+    .custom-grid { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .custom-grid > input[type="text"] {
+      flex: 1 1 280px; min-width: 180px; background: #fff; border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .custom-grid > button.copy { flex: 0 0 auto; }
+
+    .picker-container { position: relative; }
+    .overlay {
+      position: absolute; top: calc(100% + 8px); left: 0; background: #fff;
+      border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 28px var(--shadow);
+      width: 460px; padding: 16px; display: none; z-index: 100;
+    }
+    .overlay.show { display: block; }
+    .overlay-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .overlay-header .month { font-weight: 700; font-size: 1.12rem; white-space: nowrap; }
+    .overlay-header button {
+      background: #f1f5f9; color: var(--text); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 12px; cursor: pointer; white-space: nowrap;
+    }
+    .overlay-header button:hover { background: #e2e8f0; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 8px; margin-bottom: 10px; }
+    .dow { text-align: center; color: var(--muted); font-size: 0.92rem; white-space: nowrap; }
+    .day {
+      text-align: center; padding: 12px 0; border-radius: 10px; cursor: pointer;
+      border: 1px solid transparent; background: #fff; box-shadow: 0 2px 8px var(--shadow);
+      font-size: 1.05rem; user-select: none;
+    }
+    .day:hover { background: #f8fafc; border-color: #c7d2fe; }
+    .day.disabled { color: #9ca3af; cursor: default; background: transparent; box-shadow: none; }
+    .day.today { border-color: #93c5fd; }
+
+    .time-panel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+    .time-panel input {
+      background: #fff; color: var(--text); border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px; text-align: center; outline: none; box-shadow: 0 2px 8px var(--shadow); font-size: 1.05rem;
+    }
+
+    @media (max-width: 720px) {
+      .row { flex-direction: column; align-items: stretch; }
+      .fmt-label { min-width: 0; max-width: none; }
+      .local-toast { right: 12px; top: 6px; }
+      .overlay { width: 96vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 見出し（強調） -->
+    <header>
+      <div class="title-wrap">
+        <h1><span class="logo">⏱</span>日時フォーマット変換＆コピー</h1>
+        <div class="subdesc">
+          <p>このサイトは、選んだ「日付・時刻」をよく使う書式に変換して、ワンクリックでコピーできる無料ツールです。</p>
+          <p>ビジネス文書、メール、報告書、資料作成などで、統一した日付表記をすばやく作れます。</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- 上部：自前カレンダー付きの日時入力（強調） -->
+    <section class="controls" aria-label="日時選択">
+      <div class="headline"><span class="icon">🗓</span>日時（クリックでカレンダー表示）</div>
+      <input id="dtInput" type="text" readonly aria-describedby="descDt" />
+      <small id="descDt" class="help">日付クリック／時刻入力の変更で即反映します。</small>
+
+      <!-- カレンダー -->
+      <div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-label="日時ピッカー">
+        <div class="overlay-header">
+          <button id="prevMonth" aria-label="前の月">← 前</button>
+          <div class="month" id="monthLabel"></div>
+          <button id="nextMonth" aria-label="次の月">次 →</button>
+        </div>
+        <div class="calendar-grid" id="calendarHeader"></div>
+        <div class="calendar-grid" id="calendarDays"></div>
+        <div class="time-panel">
+          <input id="hourInput" type="number" min="0" max="23" step="1" placeholder="HH" aria-label="時 (0-23)" />
+          <input id="minuteInput" type="number" min="0" max="59" step="1" placeholder="mm" aria-label="分 (0-59)" />
+          <input id="secondInput" type="number" min="0" max="59" step="1" placeholder="ss" aria-label="秒 (0-59)" />
+        </div>
+      </div>
+    </section>
+
+    <!-- フォーマット一覧 -->
+    <section class="formats" id="formatList" aria-live="polite"></section>
+
+    <!-- カスタム形式 -->
+    <section class="custom" aria-label="カスタム形式">
+      <label for="customPattern">カスタム形式パターン</label>
+      <input id="customPattern" type="text" placeholder="例: yyyy/MM/dd HH:mm:ss 'JST'" />
+      <div class="custom-grid">
+        <input id="customResult" type="text" readonly />
+        <button class="copy" id="copyCustom">コピー</button>
+        <button class="copy" id="addCustom">一覧に追加</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // ===== ユーティリティ =====
+    const pad = (n, w = 2) => String(n).padStart(w, '0');
+    const WEEKDAYS = ['日','月','火','水','木','金','土'];
+    function tzOffsetString(d) {
+      const offsetMin = -d.getTimezoneOffset();
+      const sign = offsetMin >= 0 ? '+' : '-';
+      const abs = Math.abs(offsetMin);
+      const hh = pad(Math.floor(abs / 60));
+      const mm = pad(abs % 60);
+      return `${sign}${hh}:${mm}`;
+    }
+
+    // ===== フォーマッタ =====
+    function formatDate(d, pattern) {
+      if (pattern === 'ISO_LOCAL') {
+        return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}${tzOffsetString(d)}`;
+      }
+      const rep = {
+        'yyyy': () => pad(d.getFullYear(), 4),
+        'MM':   () => pad(d.getMonth()+1),
+        'dd':   () => pad(d.getDate()),
+        'HH':   () => pad(d.getHours()),
+        'mm':   () => pad(d.getMinutes()),
+        'ss':   () => pad(d.getSeconds()),
+        'E':    () => WEEKDAYS[d.getDay()],
+      };
+      let out = pattern;
+      Object.keys(rep).sort((a,b) => b.length - a.length).forEach(tok => {
+        out = out.replace(new RegExp(tok, 'g'), rep[tok]);
+      });
+      return out;
+    }
+
+    // ===== クリップボード =====
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } finally { document.body.removeChild(ta); }
+        return ok;
+      }
+    }
+
+    // ===== ローカルトースト（行右上固定） =====
+    function showLocalToast(anchorBtn, msg) {
+      const row = anchorBtn.closest('.row'); if (!row) return;
+      row.querySelectorAll('.local-toast').forEach(el => el.remove());
+      const toast = document.createElement('div');
+      toast.className = 'local-toast'; toast.textContent = msg;
+      row.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.add('show'));
+      setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 200); }, 1600);
+    }
+
+    // ===== 日時状態 =====
+    let state = { viewYear: 0, viewMonth: 0, sel: new Date() };
+
+    // ===== カレンダーUI =====
+    const dtInput = document.getElementById('dtInput');
+    const overlay = document.getElementById('overlay');
+    const monthLabel = document.getElementById('monthLabel');
+    const calHeader = document.getElementById('calendarHeader');
+    const calDays = document.getElementById('calendarDays');
+    const hourInput = document.getElementById('hourInput');
+    const minuteInput = document.getElementById('minuteInput');
+    const secondInput = document.getElementById('secondInput');
+
+    function openOverlay() {
+      overlay.classList.add('show');
+      renderCalendar();
+      hourInput.value = pad(state.sel.getHours());
+      minuteInput.value = pad(state.sel.getMinutes());
+      secondInput.value = pad(state.sel.getSeconds());
+      hourInput.focus();
+      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener('keydown', handleEsc);
+    }
+    function closeOverlay() {
+      overlay.classList.remove('show');
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('keydown', handleEsc);
+    }
+    function handleOutsideClick(e) { if (!overlay.contains(e.target) && e.target !== dtInput) closeOverlay(); }
+    function handleEsc(e) { if (e.key === 'Escape') closeOverlay(); }
+
+    function initHeaderRow() {
+      calHeader.innerHTML = '';
+      ['日','月','火','水','木','金','土'].forEach(dow => {
+        const el = document.createElement('div'); el.className = 'dow'; el.textContent = dow; calHeader.appendChild(el);
+      });
+    }
+
+    function renderCalendar() {
+      const y = state.viewYear, m = state.viewMonth;
+      monthLabel.textContent = `${y}年 ${pad(m+1)}月`;
+      calDays.innerHTML = '';
+
+      const first = new Date(y, m, 1);
+      const startDow = first.getDay();
+      const daysInMonth = new Date(y, m+1, 0).getDate();
+
+      for (let i = 0; i < startDow; i++) {
+        const ph = document.createElement('div'); ph.className = 'day disabled'; ph.textContent = ''; calDays.appendChild(ph);
+      }
+      const today = new Date();
+      for (let d = 1; d <= daysInMonth; d++) {
+        const el = document.createElement('div');
+        el.className = 'day';
+        if (today.getFullYear() === y && today.getMonth() === m && today.getDate() === d) el.classList.add('today');
+        el.textContent = d;
+        el.addEventListener('click', () => {
+          const hh = parseInt(hourInput.value || '0', 10);
+          const mm = parseInt(minuteInput.value || '0', 10);
+          const ss = parseInt(secondInput.value || '0', 10);
+          state.sel = new Date(y, m, d, hh, mm, ss, 0);
+          dtInput.value = `${y}-${pad(m+1)}-${pad(d)} ${pad(hh)}:${pad(mm)}:${pad(ss)}`;
+          closeOverlay();
+          renderFormats();
+        });
+        calDays.appendChild(el);
+      }
+    }
+
+    document.getElementById('prevMonth').addEventListener('click', () => {
+      if (state.viewMonth === 0) { state.viewMonth = 11; state.viewYear--; } else { state.viewMonth--; }
+      renderCalendar();
+    });
+    document.getElementById('nextMonth').addEventListener('click', () => {
+      if (state.viewMonth === 11) { state.viewMonth = 0; state.viewYear++; } else { state.viewMonth++; }
+      renderCalendar();
+    });
+
+    dtInput.addEventListener('click', openOverlay);
+    ['input', 'change'].forEach(ev => {
+      hourInput.addEventListener(ev, applyTimeInstant);
+      minuteInput.addEventListener(ev, applyTimeInstant);
+      secondInput.addEventListener(ev, applyTimeInstant);
+    });
+    function applyTimeInstant() {
+      const hh = clamp(parseInt(hourInput.value || '0', 10), 0, 23);
+      const mm = clamp(parseInt(minuteInput.value || '0', 10), 0, 59);
+      const ss = clamp(parseInt(secondInput.value || '0', 10), 0, 59);
+      hourInput.value = pad(hh); minuteInput.value = pad(mm); secondInput.value = pad(ss);
+      const y = state.sel.getFullYear(), m = state.sel.getMonth(), d = state.sel.getDate();
+      state.sel = new Date(y, m, d, hh, mm, ss, 0);
+      dtInput.value = `${y}-${pad(m+1)}-${pad(d)} ${pad(hh)}:${pad(mm)}:${pad(ss)}`;
+      renderFormats();
+    }
+    function clamp(n, min, max) { return Math.max(min, Math.min(max, isNaN(n) ? min : n)); }
+
+    (function initPicker() {
+      const now = new Date();
+      state.sel = now; state.viewYear = now.getFullYear(); state.viewMonth = now.getMonth();
+      dtInput.value = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      initHeaderRow(); renderCalendar();
+    })();
+
+    // ===== フォーマット一覧 =====
+    const FORMATS = [
+      { label: 'yyyyMMdd',                      pattern: 'yyyyMMdd' },
+      { label: '日本語ロケール（日付+曜日）',   pattern: 'yyyy年MM月dd日(E)' },
+      { label: '日本語ロケール（日付）',         pattern: 'yyyy年MM月dd日' },
+      { label: 'yyyy-MM-dd',                    pattern: 'yyyy-MM-dd' },
+      { label: 'yyyy/MM/dd',                    pattern: 'yyyy/MM/dd' },
+      { label: 'HH:mm:ss',                      pattern: 'HH:mm:ss' },
+      { label: 'yyyy/MM/dd HH:mm',              pattern: 'yyyy/MM/dd HH:mm' },
+      { label: 'yyyy/MM/dd HH:mm:ss',           pattern: 'yyyy/MM/dd HH:mm:ss' },
+      { label: 'ISO 8601 (ローカル)',           pattern: 'ISO_LOCAL' },
+      { label: 'yyyy-MM-dd HH:mm:ss',           pattern: 'yyyy-MM-dd HH:mm:ss' }
+    ];
+
+    function renderFormats() {
+      const list = document.getElementById('formatList');
+      list.innerHTML = '';
+      const d = state.sel;
+
+      FORMATS.forEach(fmt => {
+        const row = document.createElement('div');
+        row.className = 'row';
+
+        const label = document.createElement('div');
+        label.className = 'fmt-label';
+        label.textContent = fmt.label;
+
+        const valueWrap = document.createElement('div');
+        valueWrap.className = 'value';
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.readOnly = true;
+        input.value = formatDate(d, fmt.pattern);
+        valueWrap.appendChild(input);
+
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+        const btn = document.createElement('button');
+        btn.className = 'copy';
+        btn.textContent = 'コピー';
+        btn.addEventListener('click', async () => {
+          const ok = await copyText(input.value);
+          showLocalToast(btn, ok ? 'コピーしました' : 'コピーに失敗');
+        });
+        actions.appendChild(btn);
+
+        row.appendChild(label);
+        row.appendChild(valueWrap);
+        row.appendChild(actions);
+
+        list.appendChild(row);
+      });
+
+      // カスタム結果も更新
+      const patt = document.getElementById('customPattern').value.trim();
+      const customResultEl = document.getElementById('customResult');
+      customResultEl.value = patt ? formatDate(d, patt) : '';
+    }
+
+    // カスタム形式
+    document.getElementById('copyCustom').addEventListener('click', async (e) => {
+      const v = document.getElementById('customResult').value;
+      if (!v) return;
+      const ok = await copyText(v);
+      showLocalToast(e.currentTarget, ok ? 'コピーしました' : 'コピーに失敗');
+    });
+    document.getElementById('addCustom').addEventListener('click', () => {
+      const pattEl = document.getElementById('customPattern');
+      const patt = pattEl.value.trim();
+      if (!patt) {
+        showLocalToast(document.getElementById('addCustom'), 'パターンが未入力です');
+        return;
+      }
+      FORMATS.push({ label: patt, pattern: patt });
+      renderFormats();
+      showLocalToast(document.getElementById('addCustom'), '一覧に追加しました');
+    });
+    document.getElementById('customPattern').addEventListener('input', () => {
+      const patt = document.getElementById('customPattern').value.trim();
+           const d = state.sel;
+      document.getElementById('customResult').value = patt ? formatDate(d, patt) : '';
+    });
+
+    // 初回レンダリング
+    renderFormats();
+  </script>
+</body>
